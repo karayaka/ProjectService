@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Getway.Infrastructure.LogInterfaces
+namespace Getway.Models.Enums
 {
-    public interface ILogServices
+    public enum LogTypes:byte
     {
-        //loglama metodları yazılacak
+        request=0,
+        response=1
     }
 }

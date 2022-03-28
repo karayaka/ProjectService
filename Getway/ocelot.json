@@ -25,6 +25,31 @@
       ],
       "UpstreamPathTemplate": "/orders/{id}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/categories",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "northwind.vercel.app",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/categories",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "northwind.vercel.app",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/categories/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
 
 

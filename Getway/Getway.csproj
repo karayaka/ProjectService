@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Getway.Infrastructure\Getway.Infrastructure.csproj" />
     <ProjectReference Include="..\Getway.Services\Getway.Services.csproj" />
   </ItemGroup>
 

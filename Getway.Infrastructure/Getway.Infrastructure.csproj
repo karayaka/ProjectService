@@ -8,4 +8,8 @@
     <PackageReference Include="Serilog" Version="2.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Getway.Models\Getway.Models.csproj" />
+  </ItemGroup>
+
 </Project>

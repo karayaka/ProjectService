@@ -1,3 +1,6 @@
+using Getway.Extensoons;
+using Getway.Infrastructure.LogInterfaces;
+using Getway.Services.LogServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,10 +39,16 @@ namespace Getway
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Getway", Version = "v1" });
             });
 
+            services.AddSingleton<IMsSqlLogServices, MsSqlLogService>();
+
+            services.AddSingleton<ISqliteLogService, SqliteLogService>();
+
             services.AddOcelot();
 
-         
             
+
+
+
 
         }
 
@@ -56,6 +65,8 @@ namespace Getway
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCustomLog();
 
             app.UseAuthorization();
 
