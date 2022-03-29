@@ -32,10 +32,10 @@ namespace Getway.Midlewares
             var request = await FormatRequest(httpContext.Request);
             var requestLog = new LogModel() 
             {
-                Log=request,
+                LogDec=request,
                 LogTypes=LogTypes.request,
             };
-            await msSql.AddLog(requestLog);
+            msSql.AddLog(requestLog);
             
 
             await next.Invoke(httpContext);
@@ -46,10 +46,10 @@ namespace Getway.Midlewares
 
             var responseLog = new LogModel()
             {
-                Log = "Status Code :"+ statusCode,
-                LogTypes = LogTypes.request,
+                LogDec = "Status Code :"+ statusCode,
+                LogTypes = LogTypes.response,
             };
-            await sqlite.AddLog(responseLog);
+            sqlite.AddLog(responseLog);
         }
 
         private async Task<string> FormatRequest(HttpRequest request)
