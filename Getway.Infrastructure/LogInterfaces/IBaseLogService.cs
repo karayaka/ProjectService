@@ -9,6 +9,6 @@ namespace Getway.Infrastructure.LogInterfaces
 {
     public interface IBaseLogService
     {
-        Task AddLog(LogModel model);
+        LogModel AddLog(LogModel model);
     }
 }

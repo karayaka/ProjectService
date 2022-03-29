@@ -10,16 +10,19 @@ namespace Getway.Services.LogServices
 {
     public class SqliteLogService : ISqliteLogService
     {
-        public async Task AddLog(LogModel model)
+        public SqliteLogService() { }
+        
+        public LogModel AddLog(LogModel model)
         {
             try
             {
-                var mdl = model;
+
             }
             catch (Exception e)
             {
                 throw e;
             }
+            return model;
         }
     }
 }
