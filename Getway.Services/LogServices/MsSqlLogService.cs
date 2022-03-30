@@ -20,27 +20,30 @@ namespace Getway.Services.LogServices
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(""))
+                //projeye ait configiration dosyasından alınmalı
+                using (SqlConnection connection = new SqlConnection(@"
+                    Server = DESKTOP-4SVI4H2; Database = logDb; Trusted_Connection = True;
+                "))
                 {
-                    string query = "INSERT INTO Customers VALUES(@ID,@Log, @LogDate)"; 
+                    string query = @"
+                        INSERT INTO LogTable (LogDec, LogDate, LogTypes) VALUES ( @LogDec, @LogDate, @LogTypes)
+                        Select Scope_Identity()"; 
 
                     // Create a SqlCommand, and identify it as a stored procedure.
                     using (SqlCommand sqlCommand = new SqlCommand(query, connection))
                     {
 
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.Add(new SqlParameter("@LogDec", SqlDbType.NVarChar, 40));
+                        sqlCommand.Parameters["@LogDec"].Value = model.LogDec;
 
-
-                        sqlCommand.Parameters.Add(new SqlParameter("@Log", SqlDbType.NVarChar, 40));
-                        sqlCommand.Parameters["@Log"].Value = model.Log;
-
-                        sqlCommand.Parameters.Add(new SqlParameter("@LogDate", SqlDbType.DateTime, 40));
+                        sqlCommand.Parameters.Add(new SqlParameter("@LogDate", SqlDbType.DateTime));
                         sqlCommand.Parameters["@LogDate"].Value = model.LogDate;
 
-                        // Add the output parameter.
-                        sqlCommand.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int));
-                        sqlCommand.Parameters["@ID"].Direction = ParameterDirection.Output;
+                        sqlCommand.Parameters.Add(new SqlParameter("@LogTypes", SqlDbType.SmallInt));
+                        sqlCommand.Parameters["@LogTypes"].Value = Convert.ToInt16(model.LogTypes);
 
+                        // Add the output parameter.
+                    
                         try
                         {
                             connection.Open();
@@ -48,10 +51,10 @@ namespace Getway.Services.LogServices
                             // Run the stored procedure.
                             sqlCommand.ExecuteNonQuery();
 
+                         
+                            model.ID = Convert.ToInt32(sqlCommand.ExecuteScalar());
+
                             connection.Close();
-
-                            model.ID = (int)sqlCommand.Parameters["@ID"].Value;
-
 
                         }
                         catch (Exception e)

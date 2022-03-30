@@ -16,7 +16,7 @@ namespace Getway.Models.LogModels
 
         public int ID { get; set; }
 
-        public string Log { get; set; }
+        public string LogDec { get; set; }
 
         public LogTypes LogTypes { get; set; }
 
