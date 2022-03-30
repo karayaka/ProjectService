@@ -17,5 +17,9 @@ namespace ServicesForm
             InitializeComponent();
         }
 
+        private void frmPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
