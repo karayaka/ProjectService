@@ -9,14 +9,14 @@ namespace ServicesForm.Infrastructure
 {
     public interface ICategoryRepository:IBaseServiceRepository
     {
-        CategoryModel AddCategory(CategoryModel model);
+        Task<CategoryModel> AddCategory(CategoryModel model);
 
-        CategoryModel UpdateCategory(CategoryModel model);
+        Task<CategoryModel> UpdateCategory(CategoryModel model);
 
-        int DeleteCategory(int ID);
+        Task DeleteCategory(int ID);
 
-        List<CategoryModel> GetCategoryes();
+        Task<List<CategoryModel>> GetCategoryes();
 
-        CategoryModel GetCategory(int ID);
+        Task<CategoryModel> GetCategory(int ID);
     }
 }

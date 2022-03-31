@@ -1,4 +1,5 @@
-﻿using ServicesForm.Infrastructure;
+﻿using Newtonsoft.Json;
+using ServicesForm.Infrastructure;
 using ServicesForm.Models;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,40 @@ namespace ServicesForm.Services
             cliend.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("aplication/json"));
         }
 
-        public T add<T>(T model,string url) where T : BaseModel
+        public async Task<T> add<T>(T model,string url) where T : BaseModel
         {
-            throw new NotImplementedException();
+            try
+            {
+                var str = JsonConvert.SerializeObject(model);
+                var byteContent  = new StringContent(str, Encoding.UTF8, "application/json");
+                var response= await cliend.PostAsync(url,byteContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<T>(json);// newton json nugettebn alınacak
+                }
+                throw new Exception("İstek Başarısız");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public T get<T>(int ID, string url) where T : BaseModel
+        public async Task Delete(string url)
+        {
+            try
+            {
+                var response= await cliend.DeleteAsync(url);                
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public async Task<T> get<T>(int ID, string url) where T : BaseModel
         {
             throw new NotImplementedException();
         }
@@ -40,9 +69,8 @@ namespace ServicesForm.Services
                 var response = await cliend.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    var json = response.Content.ReadAsStringAsync();
-                    //return JsonConvert.DeserializeObject<List<T>>(json); newton json nugettebn alınacak
-                    throw new Exception("İstek Başarısız oldu");
+                    var json = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<T>>(json);// newton json nugettebn alınacak
                 }
                 else
                 {
@@ -55,9 +83,17 @@ namespace ServicesForm.Services
             }
         }
 
-        public T update<T>(T model, string url) where T : BaseModel
+        public async Task<T> update<T>(T model, string url) where T : BaseModel
         {
-            throw new NotImplementedException();
+            var str = JsonConvert.SerializeObject(model);
+            var byteContent = new StringContent(str, Encoding.UTF8, "application/json");
+            var response = await cliend.PutAsync(url, byteContent);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(json);// newton json nugettebn alınacak
+            }
+            throw new Exception("İstek Başarısız");
         }
     }
 }

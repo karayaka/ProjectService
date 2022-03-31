@@ -8,10 +8,10 @@ namespace ServicesForm.Models
 {
     public class CategoryModel:BaseModel
     {
+        //böle olmamalıydı
+        public string name { get; set; }
 
-        public string Name { get; set; }
-
-        public string Desc { get; set; }
+        public string description { get; set; }
 
 
     }

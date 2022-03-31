@@ -12,16 +12,16 @@ namespace ServicesForm.Services
     public class CategoryRepository : BaseServiceRepository, ICategoryRepository
     {
         string url = "";
-        public CategoryRepository():base("")
+        public CategoryRepository():base("https://localhost:44376/")
         {
 
         }
 
-        public CategoryModel AddCategory(CategoryModel model)
+        public async Task<CategoryModel> AddCategory(CategoryModel model)
         {
             try
             {
-                throw new Exception("");
+                return await add(model, "categories");
             }
             catch (Exception e)
             {
@@ -29,24 +29,45 @@ namespace ServicesForm.Services
             }
         }
 
-        public int DeleteCategory(int ID)
+        public async Task DeleteCategory(int ID)
+        {
+            try
+            {
+                await Delete($"categories/{ID}");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<CategoryModel> GetCategory(int ID)
         {
             throw new NotImplementedException();
         }
 
-        public CategoryModel GetCategory(int ID)
+        public async Task<List<CategoryModel>> GetCategoryes()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await getList<CategoryModel>("categories");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public List<CategoryModel> GetCategoryes()
+        public async Task<CategoryModel> UpdateCategory(CategoryModel model)
         {
-            throw new NotImplementedException();
-        }
-
-        public CategoryModel UpdateCategory(CategoryModel model)
-        {
-            throw new NotImplementedException();
+            try
+            {
+               return await update<CategoryModel>(model, $"categories/{model.ID}");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

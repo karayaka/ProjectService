@@ -45,7 +45,18 @@ namespace Getway
 
             services.AddOcelot();
 
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                        
+                    });
+            });
 
 
 
@@ -70,7 +81,7 @@ namespace Getway
 
             app.UseAuthorization();
 
-            
+            app.UseCors("AllowAll");
 
             app.UseEndpoints(endpoints =>
             {

@@ -37,7 +37,7 @@
         }
       ],
       "UpstreamPathTemplate": "/categories",
-      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ]
+      "UpstreamHttpMethod": [ "POST", "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/categories/{id}",
@@ -49,7 +49,7 @@
         }
       ],
       "UpstreamPathTemplate": "/categories/{id}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PUT" ]
     }
 
 
